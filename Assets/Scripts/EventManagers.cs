@@ -32,6 +32,7 @@ namespace DefaultNamespace
         public Vector3 cuePosition;
         public Vector3 cueForward;
         public float strange;
+        public Transform ballTransform;
     }
 
     public class BallEventHandler

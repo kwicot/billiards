@@ -15,21 +15,19 @@ public class TrajectoryDrawer : MonoBehaviour
 
     private void OnCueDrag(object sender, CueEventHandler handler)
     {
-        Ray ray = new Ray(handler.cuePosition, handler.cueForward);
+        Ray ray = new Ray(handler.ballTransform.position, (handler.ballTransform.position - handler.cuePosition) * 4);
         if (Physics.Raycast(ray, out RaycastHit hit, 5))
         {
-            mainLineRender.SetPosition(0,handler.cuePosition);
+            mainLineRender.SetPosition(0,handler.ballTransform.position);
             mainLineRender.SetPosition(1, hit.point);
+            //TODO алгоритм просчета траектории шаров
 
-            Vector3 reflect = Vector3.Reflect(ray.direction, hit.normal);
-            ballLineRender.SetPosition(0,hit.point);
-            ballLineRender.SetPosition(1, reflect.normalized * 2);
-
-            if (hit.transform.gameObject.TryGetComponent(out BallController _))
-            {
-                ball2LineRender.SetPosition(0, hit.point);
-                ball2LineRender.SetPosition(1, -reflect * 2);
-            }
+        }
+        else
+        {
+            mainLineRender.SetPosition(0,handler.ballTransform.position);
+            mainLineRender.SetPosition(1, (handler.ballTransform.position - handler.cuePosition) * 4);
+            
         }
 
         Debug.Log("Trajecory");

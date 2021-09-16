@@ -51,6 +51,7 @@ namespace DefaultNamespace
         public void OnBeginDrag(PointerEventData eventData)
         {
             startDragPosition = GetClickPosition(eventData.position);
+            cueData.ballTransform = targetTransform;
             Debug.Log("BeginDrag");
         }
 
@@ -60,6 +61,7 @@ namespace DefaultNamespace
             MoveCue(position);
             cueData.strange = CalculateStrange();
             cueData.cueForward = cueTransform.forward;
+            cueData.cuePosition = cueTransform.position;
             
             EventManagers.CueEvents.OnCueDrag?.Invoke(this,cueData);
         }
